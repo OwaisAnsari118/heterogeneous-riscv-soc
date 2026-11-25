@@ -21,3 +21,15 @@ fi
 # shellcheck disable=SC1091
 source "$OSS_CAD_SUITE/environment"
 export OSS_CAD_SUITE
+
+# Verible (lint/format), pinned static release:
+#   verible-v0.0-4302-gc6b29d62-linux-static-x86_64.tar.gz
+#   sha256 f097fcad8e8ada021a9e14ef43be749a5b66095b9a2ab449f775f2337d8462b5
+#   https://github.com/chipsalliance/verible/releases/tag/v0.0-4302-gc6b29d62
+VERIBLE_HOME="${VERIBLE_HOME:-$HOME/tools/verible-v0.0-4302-gc6b29d62}"
+if [ -x "$VERIBLE_HOME/bin/verible-verilog-lint" ]; then
+  PATH="$VERIBLE_HOME/bin:$PATH"
+  export PATH VERIBLE_HOME
+else
+  echo "BLOCKED: Verible not found at $VERIBLE_HOME" >&2
+fi

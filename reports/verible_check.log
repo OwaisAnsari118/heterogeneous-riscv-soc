@@ -1,0 +1,37 @@
+# Verible check via scripts/env.sh, run 2026-11-26T01:06:47+05:30
+=== verible-verilog-lint
+$ which verible-verilog-lint
+/home/owais-ansari/tools/verible-v0.0-4302-gc6b29d62/bin/verible-verilog-lint
+$ verible-verilog-lint --version
+Version	v0.0-4302-gc6b29d62
+Commit-Timestamp	2026-11-16T20:22:48Z
+Built	2026-11-16T20:25:11Z
+
+=== verible-verilog-format
+$ which verible-verilog-format
+/home/owais-ansari/tools/verible-v0.0-4302-gc6b29d62/bin/verible-verilog-format
+$ verible-verilog-format --version
+Version	v0.0-4302-gc6b29d62
+Commit-Timestamp	2026-11-16T20:22:48Z
+Built	2026-11-16T20:25:11Z
+
+=== verible-verilog-syntax
+$ which verible-verilog-syntax
+/home/owais-ansari/tools/verible-v0.0-4302-gc6b29d62/bin/verible-verilog-syntax
+$ verible-verilog-syntax --version
+Version	v0.0-4302-gc6b29d62
+Commit-Timestamp	2026-11-16T20:22:48Z
+Built	2026-11-16T20:25:11Z
+
+# Smoke test on vendor example $OSS_CAD_SUITE/examples/fifo/fifo.sv (NOT project RTL); proves the tools run.
+$ verible-verilog-syntax fifo.sv
+[exit=0]
+$ verible-verilog-lint fifo.sv
+[exit=1]
+findings: 3
+fifo.sv:3:15-22: Explicitly define a storage type for every parameter and localparam, (MAX_DATA). [Style: constants] [explicit-parameter-storage-type]
+fifo.sv:24:15-22: Explicitly define a storage type for every parameter and localparam, (MAX_DATA). [Style: constants] [explicit-parameter-storage-type]
+fifo.sv:37:21-32: Unpacked dimension range must be declared in big-endian ([0:N-1]) order.  Declare zero-based big-endian unpacked dimensions sized as [N]. [Style: unpacked-ordering] [unpacked-dimensions-range-ordering]
+$ verible-verilog-format fifo.sv | diff -q fifo.sv -
+[format exit=0]
+would reformat: 171 lines differ

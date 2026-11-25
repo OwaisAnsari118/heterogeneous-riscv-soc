@@ -67,7 +67,7 @@ or OSS CAD Suite was found under `/opt` or `~` (depth 4). Available package mana
 | iverilog | Yes | Icarus Verilog version 14.0 (devel) (s20260301-1291-g3f05f92b0-dirty) | `iverilog -V` |
 | python3 (suite) | Yes | Python 3.11.6 | `python3 --version` |
 | cocotb | Yes | 2.1.0.dev0+41564633 | `cocotb-config --version` |
-| verible | **BLOCKED** (not part of decision 1A) | — | `which verible-verilog-lint` |
+| verible | Not in OSS CAD Suite; installed separately on 2026-11-26, see "Update: Verible" below | — | — |
 
 With `scripts/env.sh` sourced, these binaries shadow the apt Verilator 5.020 and Icarus 12.0 in
 `/usr/bin`. Without it, the apt versions are used.
@@ -135,6 +135,25 @@ whether a full SoC fits in 7.1 GiB RAM. Peak memory was not measured in run 2.
 - Heads-up for Phase 1/2: since GCC 12, CSR and `fence.i` instructions need the Zicsr/Zifencei
   extensions spelled out, e.g. `-march=rv32i_zicsr_zifencei`; plain `rv32i` will reject the
   `csrw` used in crt0. To be confirmed when crt0 is written.
+
+## Update 2026-11-26: Verible installed (owner approved)
+
+- Archive: `verible-v0.0-4302-gc6b29d62-linux-static-x86_64.tar.gz` (statically linked ELF) from
+  https://github.com/chipsalliance/verible/releases/tag/v0.0-4302-gc6b29d62
+- sha256 `f097fcad8e8ada021a9e14ef43be749a5b66095b9a2ab449f775f2337d8462b5`, verified with `sha256sum -c` (OK)
+- Installed to `~/tools/verible-v0.0-4302-gc6b29d62`; added to PATH by `source scripts/env.sh`
+- **Raw evidence:** [`verible_check.log`](verible_check.log)
+
+| Tool | Found? | Version | Command used (after `source scripts/env.sh`) |
+|---|---|---|---|
+| verible-verilog-lint | Yes | v0.0-4302-gc6b29d62 (commit 2026-11-16T20:22:48Z) | `verible-verilog-lint --version` |
+| verible-verilog-format | Yes | v0.0-4302-gc6b29d62 | `verible-verilog-format --version` |
+| verible-verilog-syntax | Yes | v0.0-4302-gc6b29d62 | `verible-verilog-syntax --version` |
+
+Smoke test on the vendor example `fifo.sv` (not project RTL; it shows only that the tools run):
+syntax exit 0; lint exit 1 with 3 style findings (`explicit-parameter-storage-type` ×2,
+`unpacked-dimensions-range-ordering`); format exit 0 (it would reformat the vendor file).
+Lint rule set and format style for the project are decided later (lint config in Phase 1).
 
 ## Notes
 
