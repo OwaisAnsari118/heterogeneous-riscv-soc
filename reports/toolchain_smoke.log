@@ -1,0 +1,37 @@
+# Toolchain smoke test on the vendor example $OSS_CAD_SUITE/examples/fifo (NOT project RTL), run 2026-11-26T00:28:52+05:30
+# Purpose: prove yosys / verilator / sby execute. Says nothing about project design quality.
+
+$ yosys -q -p "read_verilog -sv fifo.sv; synth -top fifo; tee -o yosys_stat.txt stat"
+[exit=0]
+      360 cells
+        9   $_ANDNOT_
+       42   $_AND_
+        5   $_DFFE_PP0P_
+      128   $_DFFE_PP_
+      103   $_MUX_
+       35   $_NAND_
+        3   $_NOR_
+        6   $_NOT_
+       13   $_ORNOT_
+       11   $_OR_
+        2   $_XNOR_
+        3   $_XOR_
+       10 cells
+        1   $_AND_
+        4   $_DFFE_PP0P_
+        1   $_NAND_
+        1   $_NOT_
+        1   $_XNOR_
+        2   $_XOR_
+
+$ verilator --lint-only -Wall fifo.sv
+[exit=1]
+warnings: 2
+%Warning-DECLFILENAME: fifo.sv:2:8: Filename 'fifo' does not match MODULE name: 'addr_gen'
+%Warning-WIDTHEXPAND: fifo.sv:15:22: Operator EQ expects 32 or 5 bits on the LHS, but LHS's VARREF 'addr' generates 4 bits.
+
+$ sby -f fifo.sby basic
+[exit=0]
+SBY  0:28:53 [fifo_basic] summary: engine_0 (smtbmc boolector) returned pass
+SBY  0:28:53 [fifo_basic] summary: engine_0 did not produce any traces
+SBY  0:28:53 [fifo_basic] DONE (PASS, rc=0)

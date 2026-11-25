@@ -1,0 +1,9 @@
+# Python virtual environment
+.venv/
+# Tool run directories (scratch); curated reports go in reports/
+runs/
+__pycache__/
+*.pyc
+# Waveforms (large; regenerate from scripts)
+*.vcd
+*.fst

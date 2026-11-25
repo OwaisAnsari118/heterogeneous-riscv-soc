@@ -1,0 +1,55 @@
+# toolchain check via scripts/env.sh, run 2026-11-26T00:28:04+05:30
+# OSS_CAD_SUITE=/home/owais-ansari/tools/oss-cad-suite-20261125
+=== yosys
+$ which yosys
+/home/owais-ansari/tools/oss-cad-suite-20261125/bin/yosys
+$ yosys -V
+Yosys 0.71+115 (git sha1 ab83f23a2, Release, Clang /usr/bin/clang++ 21.1.8)
+
+=== sby
+$ which sby
+/home/owais-ansari/tools/oss-cad-suite-20261125/bin/sby
+$ sby --help
+usage: sby [options] [<jobname>.sby [tasknames] | <dirname>]
+
+
+=== verilator
+$ which verilator
+/home/owais-ansari/tools/oss-cad-suite-20261125/bin/verilator
+$ verilator --version
+Verilator 5.055 devel rev v5.054-396-ge7d094587 (mod)
+
+=== iverilog
+$ which iverilog
+/home/owais-ansari/tools/oss-cad-suite-20261125/bin/iverilog
+$ iverilog -V
+Icarus Verilog version 14.0 (devel) (s20260301-1291-g3f05f92b0-dirty)
+
+
+=== python3
+$ which python3
+/home/owais-ansari/tools/oss-cad-suite-20261125/py3bin/python3
+$ python3 --version
+Python 3.11.6
+
+=== cocotb-config
+$ which cocotb-config
+/home/owais-ansari/tools/oss-cad-suite-20261125/bin/cocotb-config
+$ cocotb-config --version
+2.1.0.dev0+41564633
+
+=== eqy
+$ which eqy
+/home/owais-ansari/tools/oss-cad-suite-20261125/bin/eqy
+$ eqy --help
+usage: eqy [options] <config>.eqy
+
+
+=== verible-verilog-lint
+$ which verible-verilog-lint
+NOT FOUND
+
+=== cocotb
+$ python3 -m pip show cocotb
+DEPRECATION: Loading egg at /home/owais-ansari/tools/oss-cad-suite-20261125/lib/python3.11/site-packages/find_libpython-0.5.1-py3.11.egg is deprecated. pip 23.3 will enforce this behaviour change. A possible replacement is to use pip for package installation..
+DEPRECATION: Loading egg at /home/owais-ansari/tools/oss-cad-suite-20261125/lib/python3.11/site-packages/yosys_mau-0.0.2-py3.11-linux-x64.egg is deprecated. pip 23.3 will enforce this behaviour change. A possible replacement is to use pip for package installation..

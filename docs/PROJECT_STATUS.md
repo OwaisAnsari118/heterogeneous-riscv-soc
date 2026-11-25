@@ -52,15 +52,22 @@ None. No RTL exists. No simulation, lint, synthesis, timing or physical-design r
 ## Done
 
 - 2026-11-26: Repository skeleton created.
+- 2026-11-26: Environment inventory (`reports/TOOL_VERSIONS.md`).
+- 2026-11-26: OSS CAD Suite 2026-11-25 installed (yosys 0.71, sby, verilator 5.055, iverilog 14.0, cocotb 2.1.0.dev0); load with `source scripts/env.sh`. Tools run on the vendor fifo example: `reports/toolchain_smoke.log`.
+- 2026-11-26: LibreLane 3.0.17 installed in `.venv` (`pnr/requirements.txt`).
 
 ## In progress
 
-- Awaiting owner decision on tool install route.
+- LibreLane smoke test: run 1 FAILED (no TTY in the launching shell; flow never started). Needs a re-run from a terminal.
 
 ## Blocked
 
-- Lint (Verible), synthesis, formal, PD, STA, cocotb, RISC-V GCC and spike are not installed: see `reports/TOOL_VERSIONS.md`. Verilator 5.020 and Icarus 12.0 are present.
+- Verible: not installed (awaiting owner decision).
+- RISC-V GCC: not installed (decision 3 pending; needs sudo).
+- spike / Sail: deferred to Phase 1.
+- LibreLane smoke test / PD memory on this 7.1 GiB host: unmeasured (see `reports/TOOL_VERSIONS.md`).
+- cocotb: installed but not exercised (first testbench comes in Phase 1).
 
 ## Next
 
-- Owner decisions on tool installation; then Phase 0 research and architecture documents.
+- Re-run the LibreLane smoke test with a TTY; owner decisions 3–5 and Verible; then Phase 0 research and architecture documents.

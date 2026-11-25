@@ -1,0 +1,43 @@
+# LibreLane smoke test, run 2026-11-26T00:29:59+05:30
+# librelane==3.0.17 (pnr/requirements.txt), host RAM 7.1 GiB (docs minimum 8 GiB)
+$ .venv/bin/python -m librelane --dockerized --smoke-test
+WARNING: This output is designed for human readability. For machine-readable output, please use --format.
+3.0.17: Pulling from librelane/librelane
+69899dceef2a: Pulling fs layer
+1da1f92cc7c0: Pulling fs layer
+1da1f92cc7c0: Verifying Checksum
+1da1f92cc7c0: Download complete
+69899dceef2a: Verifying Checksum
+69899dceef2a: Download complete
+69899dceef2a: Pull complete
+1da1f92cc7c0: Pull complete
+Digest: sha256:24640bd645ae992fa22d4a3e18fde10d728763c78fb140184f9975aa6c7d3e5e
+Status: Downloaded newer image for ghcr.io/librelane/librelane:3.0.17
+ghcr.io/librelane/librelane:3.0.17
+[00:35:35] INFO     Running containerized command:              container.py:285
+the input device is not a TTY
+Command exited with non-zero status 1
+	Command being timed: ".venv/bin/python -m librelane --dockerized --smoke-test"
+	User time (seconds): 0.61
+	System time (seconds): 0.28
+	Percent of CPU this job got: 0%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 5:36.20
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 47648
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 26
+	Minor (reclaiming a frame) page faults: 25870
+	Voluntary context switches: 7783
+	Involuntary context switches: 221
+	Swaps: 0
+	File system inputs: 6336
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1
+[exit=1]
