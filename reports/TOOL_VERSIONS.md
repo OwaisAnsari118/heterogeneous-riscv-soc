@@ -95,6 +95,7 @@ To be recorded in the risk register.
 
 | Smoke test | Command | Result | Evidence |
 |---|---|---|---|
+| Run 2 (2026-11-26 00:49:16 → 00:50:58), run by owner in an interactive terminal | `script -q -c ".venv/bin/python -m librelane --dockerized --smoke-test" reports/pnr/librelane_smoke_run2.log` | **PASS**: all 80 stages of the Classic flow, `Flow complete.`, `Smoke test passed.`, `COMMAND_EXIT_CODE="0"`. The bundled smoke-test design's manufacturability report shows Antenna/LVS/DRC "Passed". | raw (authoritative): [`pnr/librelane_smoke_run2.log.gz`](pnr/librelane_smoke_run2.log.gz); readable copy (ANSI codes and progress-bar lines stripped, so some lines such as `Flow complete.` are dropped): [`pnr/librelane_smoke_run2_clean.log`](pnr/librelane_smoke_run2_clean.log) |
 | Run 1 (2026-11-26 00:30) | `.venv/bin/python -m librelane --dockerized --smoke-test` | **FAIL**, an environment problem, not a design or RAM failure: after the image pull, `the input device is not a TTY`, exit 1. The wrapper asks Docker for an interactive terminal, and the run was launched from a non-interactive background shell. The flow never started, and no PDK was downloaded. | [`pnr/librelane_smoke_run1_notty.log`](pnr/librelane_smoke_run1_notty.log) |
 
 The memory samples from run 1 ([`pnr/librelane_smoke_run1_mem.log`](pnr/librelane_smoke_run1_mem.log))
@@ -102,7 +103,18 @@ only show idle host usage (host used ≤ 4507 MiB, available ≥ 2756 MiB) becau
 ran. They are **not** evidence of LibreLane's memory needs. Peak PD memory on this host is still
 **unmeasured**.
 
-**LibreLane status: installed, smoke test BLOCKED** until it is re-run from a terminal (TTY).
+**LibreLane status: installed, smoke test PASS (run 2).** What this shows: the Docker flow
+(Yosys → OpenROAD → Magic/KLayout/Netgen checks) runs end to end on this host for LibreLane's
+own tiny test design. What it does **not** show: anything about this project's design, or
+whether a full SoC fits in 7.1 GiB RAM. Peak memory was not measured in run 2.
+
+- PDK: sky130 (`sky130A`), Ciel version `8afc8346a57fe1ab7934ba5a6056ea8b43078e71`, in
+  `~/.ciel` (2.2 GB on disk, `du -sh ~/.ciel`). This is the PDK LibreLane 3.0.17 picks by
+  default. It is **not** yet the project's PDK decision (Phase 0 ADR).
+- Run 2's own timestamps cover only ~1 min 42 s. Whether the PDK was already in `~/.ciel`
+  before run 2 started is not recorded in the log.
+- The container is launched with `-v /home/owais-ansari:/home/owais-ansari`, so it mounts the
+  whole home directory (LibreLane default). This comes from the run-2 log header.
 
 ## Notes
 
