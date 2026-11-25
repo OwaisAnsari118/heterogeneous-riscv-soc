@@ -54,20 +54,20 @@ None. No RTL exists. No simulation, lint, synthesis, timing or physical-design r
 - 2026-11-26: Repository skeleton created.
 - 2026-11-26: Environment inventory (`reports/TOOL_VERSIONS.md`).
 - 2026-11-26: OSS CAD Suite 2026-11-25 installed (yosys 0.71, sby, verilator 5.055, iverilog 14.0, cocotb 2.1.0.dev0); load with `source scripts/env.sh`. Tools run on the vendor fifo example: `reports/toolchain_smoke.log`.
-- 2026-11-26: LibreLane 3.0.17 installed in `.venv` (`pnr/requirements.txt`).
+- 2026-11-26: LibreLane 3.0.17 installed in `.venv` (`pnr/requirements.txt`). Smoke test run 2 PASS on LibreLane's bundled design (`reports/pnr/librelane_smoke_run2.log.gz`); sky130 PDK in `~/.ciel`. This proves the flow runs here, not anything about this project's design.
 
 ## In progress
 
-- LibreLane smoke test: run 1 FAILED (no TTY in the launching shell; flow never started). Needs a re-run from a terminal.
+- Owner decisions 3–5 and Verible.
 
 ## Blocked
 
 - Verible: not installed (awaiting owner decision).
 - RISC-V GCC: not installed (decision 3 pending; needs sudo).
 - spike / Sail: deferred to Phase 1.
-- LibreLane smoke test / PD memory on this 7.1 GiB host: unmeasured (see `reports/TOOL_VERSIONS.md`).
+- PD peak memory on this 7.1 GiB host: unmeasured (the smoke design is tiny; full-SoC fit unknown).
 - cocotb: installed but not exercised (first testbench comes in Phase 1).
 
 ## Next
 
-- Re-run the LibreLane smoke test with a TTY; owner decisions 3–5 and Verible; then Phase 0 research and architecture documents.
+- Owner decisions 3–5 and Verible; then Phase 0 research (PDKs first) and architecture documents.
