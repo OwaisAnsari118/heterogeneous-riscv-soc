@@ -49,6 +49,15 @@ None. No RTL exists. No simulation, lint, synthesis, timing or physical-design r
 | Advanced features (AI accel, vector, multicore, caches) | 8 | PLANNED |
 | FPGA prototype (secondary) | — | PLANNED |
 
+## Owner decisions
+
+| # | Date | Decision |
+|---|---|---|
+| 1 | 2026-11-26 | Front-end tools via OSS CAD Suite, a pinned dated release in `~/tools` (1A) |
+| 2 | 2026-11-26 | Physical design via LibreLane in Docker; smoke test during Phase 0 (2A-now) |
+| 3 | 2026-11-26 | RISC-V GCC from Ubuntu apt (installed by owner) |
+| 4 | 2026-11-26 | **Accept the 7.1 GiB RAM risk for now.** It goes into `RISK_REGISTER.md` (when created) as accepted. Revisit when the first block-level LibreLane run on project RTL is set up, using measured peak memory, and before Phase 6 at the latest. |
+
 ## Done
 
 - 2026-11-26: Repository skeleton created.
@@ -59,15 +68,15 @@ None. No RTL exists. No simulation, lint, synthesis, timing or physical-design r
 
 ## In progress
 
-- Owner decisions 4–5 and Verible.
+- Owner decision 5 (git identity) and Verible.
 
 ## Blocked
 
 - Verible: not installed (awaiting owner decision).
 - spike / Sail: deferred to Phase 1.
-- PD peak memory on this 7.1 GiB host: unmeasured (the smoke design is tiny; full-SoC fit unknown).
+- PD peak memory on this 7.1 GiB host: unmeasured (the smoke design is tiny; full-SoC fit unknown). Risk accepted for now (decision 4).
 - cocotb: installed but not exercised (first testbench comes in Phase 1).
 
 ## Next
 
-- Owner decisions 4–5 and Verible; then Phase 0 research (PDKs first) and architecture documents.
+- Owner decision 5 and Verible; then Phase 0 research (PDKs first) and architecture documents.
