@@ -15,7 +15,7 @@ None. No RTL exists. No simulation, lint, synthesis, timing or physical-design r
 | Deliverable | Status |
 |---|---|
 | Repository skeleton (CLAUDE.md §7 layout) | IMPLEMENTED (unverified) |
-| Tool inventory (`reports/TOOL_VERSIONS.md`) | IN PROGRESS |
+| Tool inventory (`reports/TOOL_VERSIONS.md`) | IMPLEMENTED (unverified) |
 | `docs/REQUIREMENTS.md` (MVP scope, PROVISIONAL TARGETs) | PLANNED |
 | `docs/ARCHITECTURE.md` (SoC block diagram, memory map, bus, interrupts, clock/reset) | PLANNED |
 | ADRs: ISA/core, bus, PDK, flow, toolchain | PLANNED |
@@ -55,11 +55,11 @@ None. No RTL exists. No simulation, lint, synthesis, timing or physical-design r
 
 ## In progress
 
-- Environment / tool inventory.
+- Awaiting owner decision on tool install route.
 
 ## Blocked
 
-- See `reports/TOOL_VERSIONS.md` once committed.
+- Lint (Verible), synthesis, formal, PD, STA, cocotb, RISC-V GCC and spike are not installed: see `reports/TOOL_VERSIONS.md`. Verilator 5.020 and Icarus 12.0 are present.
 
 ## Next
 
