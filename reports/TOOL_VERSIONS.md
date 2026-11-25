@@ -116,6 +116,26 @@ whether a full SoC fits in 7.1 GiB RAM. Peak memory was not measured in run 2.
 - The container is launched with `-v /home/owais-ansari:/home/owais-ansari`, so it mounts the
   whole home directory (LibreLane default). This comes from the run-2 log header.
 
+## Update 2026-11-26: RISC-V GCC installed (owner decision 3, apt, installed by owner)
+
+**Raw evidence:** [`gcc_check.log`](gcc_check.log)
+
+| Tool | Found? | Version | Command used |
+|---|---|---|---|
+| riscv64-unknown-elf-gcc | Yes (`/usr/bin`) | 13.2.0 (13.2.0-11ubuntu1+12) | `riscv64-unknown-elf-gcc --version` |
+| binutils-riscv64-unknown-elf | Yes | 2.42-1ubuntu1+6 | `dpkg-query -W` |
+| picolibc-riscv64-unknown-elf | Yes | 1.8.6-2 | `dpkg-query -W` |
+
+- `rv32i/ilp32` multilib present (one of 30): `-print-multi-lib`
+- Test compile (2-function C file in the scratchpad, not project code):
+  `-march=rv32i -mabi=ilp32 -O2 -c` → exit 0, ELF32 RISC-V object; linking with
+  `--specs=picolibc.specs` → exit 0, ELF32, entry `0x80000000`, `e_flags 0x0` (RVC bit clear, soft-float ilp32 ABI).
+- Not shown: that the binary runs. No simulator or ISS was used. The entry address is
+  picolibc's default and will be replaced by the project linker script in Phase 2.
+- Heads-up for Phase 1/2: since GCC 12, CSR and `fence.i` instructions need the Zicsr/Zifencei
+  extensions spelled out, e.g. `-march=rv32i_zicsr_zifencei`; plain `rv32i` will reject the
+  `csrw` used in crt0. To be confirmed when crt0 is written.
+
 ## Notes
 
 - `iverilog -V` exit code 141 in the log is SIGPIPE from `| head`, not a tool failure.

@@ -1,0 +1,38 @@
+# RISC-V GCC check, run 2026-11-26T01:01:23+05:30. Test source: 2-function C file in scratchpad (not project code):
+#   int add(int a, int b) { return a + b; }
+#   int main(void) { volatile int x = add(2, 3); return x - 5; }
+
+$ which riscv64-unknown-elf-gcc
+/usr/bin/riscv64-unknown-elf-gcc
+
+$ riscv64-unknown-elf-gcc --version
+riscv64-unknown-elf-gcc (13.2.0-11ubuntu1+12) 13.2.0
+
+$ dpkg-query -W gcc-riscv64-unknown-elf picolibc-riscv64-unknown-elf binutils-riscv64-unknown-elf
+binutils-riscv64-unknown-elf	2.42-1ubuntu1+6
+gcc-riscv64-unknown-elf	13.2.0-11ubuntu1+12
+picolibc-riscv64-unknown-elf	1.8.6-2
+
+$ riscv64-unknown-elf-gcc -print-multi-lib | grep -E "rv32i[^a-z]|rv32i;|ilp32;"
+rv32i/ilp32;@march=rv32i@mabi=ilp32
+rv32ia/ilp32;@march=rv32ia@mabi=ilp32
+rv32im/ilp32;@march=rv32im@mabi=ilp32
+rv32iac/ilp32;@march=rv32iac@mabi=ilp32
+rv32imac/ilp32;@march=rv32imac@mabi=ilp32
+(total multilibs: 30)
+
+$ riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -O2 -c t.c -o t.o
+[exit=0]
+$ riscv64-unknown-elf-readelf -h t.o | grep -E "Class|Machine|Flags"
+  Class:                             ELF32
+  Machine:                           RISC-V
+  Flags:                             0x0
+
+$ riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -O2 --specs=picolibc.specs t.c -o t.elf
+[exit=0]
+$ riscv64-unknown-elf-readelf -h t.elf | grep -E "Class|Flags|Entry"
+  Class:                             ELF32
+  Entry point address:               0x80000000
+  Flags:                             0x0
+$ riscv64-unknown-elf-objdump -d t.elf | grep -oE "\t(mul|div|rem|c\.)[a-z.]*" | sort -u   # any non-RV32I instructions?
+[none listed = only base-ISA ops found]
